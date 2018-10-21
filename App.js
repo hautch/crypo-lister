@@ -1,6 +1,6 @@
 import React from 'react';
 import { Font } from 'expo';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 
 export default class App extends React.Component {
 
@@ -24,19 +24,19 @@ export default class App extends React.Component {
 
     Font.loadAsync({
 
-      'nova': require('./assets/fonts/ProximaNova-Light.otf'),
+      'Lobster': require('./assets/fonts/Lobster-Regular.ttf'),
     });
 
 
     let arrayCopy = this.state.coins;
 
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=10')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=50')
       .then(results => {
         return results.json();
       })
       .then(json => {
 
-        for(let i = 0; i < 10; i++) {
+        for(let i = 0; i < 50; i++) {
 
           let price = parseFloat(json[i].price_usd);
           let change = parseFloat(json[i].percent_change_24h);
@@ -68,7 +68,7 @@ export default class App extends React.Component {
 
       return (
 
-        <View style = {styles.coinListItem} key = {i}>
+        <View style = {styles.coinListItem} key = {i}> 
           <View style = {[styles.column, styles.coinImage]}></View>
           <View style = {[styles.column, styles.coinName]}><Text>{e[0]}</Text></View>
           <View style = {[styles.column, styles.coinPrice]}><Text>${e[1]}</Text></View>
@@ -94,7 +94,11 @@ export default class App extends React.Component {
 
         <View style = {styles.listContainer}>
 
-          {this.renderListItems()}
+          <ScrollView>
+
+            {this.renderListItems()}
+
+          </ScrollView>
 
         </View>
 
@@ -109,7 +113,7 @@ const styles = StyleSheet.create({
   container: {
 
     flex: 1,
-    backgroundColor: '#bed1d9'
+    backgroundColor: '#fffef7'
   },
 
   header: {
@@ -120,16 +124,25 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2
   },
 
-
   headerText: {
-    color: 'black',
+    color: '#1f3f96',
     fontSize: 30,
     fontFamily: 'Helvetica'
   }, 
 
   listContainer: {
 
-    flex: 1,
+    justifyContent: 'center',
+    width: 300,
+    height: 350,
+    backgroundColor: '#fff1f1',
+    marginTop: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderColor: '#ececec',
+    borderWidth: 2
   },
 
   column: {
@@ -146,24 +159,21 @@ const styles = StyleSheet.create({
   coinName: {
 
 
-    width: 120
+    width: 100
   },
 
   coinPrice: {
 
-    width: 80
+    width: 70
   },
 
   coinListItem: {
 
-    flex: 1,
+    height: 45,
+    position: 'relative',
     alignSelf: 'stretch',
     alignItems: 'center',
     flexDirection: 'row',
-    height: 45,
-    backgroundColor: '#6aa1b1',
-    borderBottomWidth: 2,
-    borderBottomColor: 'white',
 
   },
 
