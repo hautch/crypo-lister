@@ -61,17 +61,17 @@ export default class App extends React.Component {
     return this.state.coins.map((e, i) => {
 
       var isPositive = (e[2] >= 0);
-      var colorPicker = 'green';
+      var colorPicker = '#18f432';
 
       if(isPositive == false)
-        colorPicker = 'red';
+        colorPicker = '#f41818';
 
       return (
 
         <View style = {styles.coinListItem} key = {i}> 
-          <View style = {[styles.column, styles.coinImage]}></View>
-          <View style = {[styles.column, styles.coinName]}><Text>{e[0]}</Text></View>
-          <View style = {[styles.column, styles.coinPrice]}><Text>${e[1]}</Text></View>
+          <View style = {[styles.column, styles.coinRank]}><Text style = {{color: 'white'}}>#{i+1}</Text></View>
+          <View style = {[styles.column, styles.coinName]}><Text style = {{color: 'white'}}>{e[0]}</Text></View>
+          <View style = {[styles.column, styles.coinPrice]}><Text style = {{color: 'white'}}>${e[1]}</Text></View>
           <View style = {[styles.column, styles.coinChange]}><Text style = {{color: colorPicker}}>%{e[2]}</Text></View>
         </View>
         )
@@ -89,6 +89,15 @@ export default class App extends React.Component {
         <View style = {styles.header}>
 
           <Text style = {styles.headerText}>CRYPTOLISTED</Text>
+
+        </View>
+
+        <View style = {styles.listHeader}>
+
+          <View style = {{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}><Text style = {{color: 'white'}}>#</Text></View>
+          <View style = {{flex: 0.3}}><Text style = {{color: 'white'}}>Name</Text></View>
+          <View style = {{flex: 0.3}}><Text style = {{color: 'white'}}>Price (USD)</Text></View>
+          <View style = {{flex: 0.2}}><Text style = {{color: 'white'}}>24hr %</Text></View>
 
         </View>
 
@@ -113,7 +122,7 @@ const styles = StyleSheet.create({
   container: {
 
     flex: 1,
-    backgroundColor: '#fffef7'
+    backgroundColor: '#2B2C43'
   },
 
   header: {
@@ -125,46 +134,66 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
-    color: '#1f3f96',
+    color: 'white',
     fontSize: 30,
     fontFamily: 'Helvetica'
   }, 
+
+  listHeader: {
+
+    width: 300,
+    height: 45,
+    borderRadius: 20,
+    backgroundColor: '#77566f',
+    borderColor: '#ececec',
+    borderWidth: 2,
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center'
+
+  },
 
   listContainer: {
 
     justifyContent: 'center',
     width: 300,
     height: 350,
-    backgroundColor: '#fff1f1',
+    backgroundColor: '#77566f',
     marginTop: 15,
     marginLeft: 'auto',
     marginRight: 'auto',
     borderRadius: 20,
     overflow: 'hidden',
     borderColor: '#ececec',
-    borderWidth: 2
+    borderWidth: 2,
   },
 
   column: {
 
   },
 
-  coinImage: {
+  coinRank: {
 
-    width: 70,
-    alignItems: 'center'
+    flex: 0.2,
+    alignItems: 'center',
 
   },
 
   coinName: {
 
-
-    width: 100
+    flex: 0.3,
   },
 
   coinPrice: {
 
-    width: 70
+    flex: 0.3,
+  },
+
+  coinChange: {
+
+    flex: 0.2
   },
 
   coinListItem: {
@@ -173,12 +202,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignSelf: 'stretch',
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'row'
 
   },
 
-  nameListItemText: {
-
-    color: 'white'
-  }
 });
